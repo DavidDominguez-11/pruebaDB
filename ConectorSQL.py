@@ -19,11 +19,14 @@ def verificar_usuario(username, password):
 
         if result:
             print("Usuario encontrado")
+            return True
         else:
             print("Usuario no encontrado")
+            return False
 
     except mysql.connector.Error as err:
         print(f"Error: {err}")
+        return False
     finally:
         if 'connection' in locals() and connection.is_connected():
             cursor.close()
@@ -43,14 +46,16 @@ def crear_cuenta(username, password):
         cursor.execute(query, (last_id + 1, username, password))
         connection.commit()
         print("Cuenta creada con éxito")
+        return True
 
     except mysql.connector.Error as err:
         print(f"Error: {err}")
+        return False
     finally:
         if 'connection' in locals() and connection.is_connected():
             cursor.close()
             connection.close()
 
 
-crear_cuenta('hola2', 'como')  # ejemplo
-verificar_usuario('hola2', 'como')  # ejemplo
+# crear_cuenta('hola2', 'como')  # ejemplo
+# verificar_usuario('hola2', 'como')  # ejemplo

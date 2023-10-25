@@ -1,3 +1,6 @@
+import ConectorSQL
+
+
 class Usuario:
     def __init__(self, nombre, contrasena):
         self.nombre = nombre
@@ -6,7 +9,6 @@ class Usuario:
 
 class Menu:
     def __init__(self):
-        self.usuarios = []
         self.usuario_actual = None
 
     def mostrar_menu_principal(self):
@@ -36,21 +38,22 @@ class Menu:
         nombre = input("Ingrese su nombre de usuario: ")
         contrasena = input("Ingrese su contraseña: ")
 
-        for usuario in self.usuarios:
-            if usuario.nombre == nombre and usuario.contrasena == contrasena:
-                self.usuario_actual = usuario
-                print(f"Bienvenido, {usuario.nombre}!")
-                return
-
-        print("Nombre de usuario o contraseña incorrectos.")
+        # pip install mysql-connector-python
+        flag = ConectorSQL.verificar_usuario(nombre, contrasena)
+        if flag:
+            print(f"Bienvenido, {nombre}!")
+        else:
+            print("Nombre de usuario o contraseña incorrectos.")
 
     def crear_cuenta(self):
         nombre = input("Ingrese un nombre de usuario: ")
         contrasena = input("Ingrese una contraseña: ")
 
-        nuevo_usuario = Usuario(nombre, contrasena)
-        self.usuarios.append(nuevo_usuario)
-        print("Cuenta creada exitosamente")
+        flag = ConectorSQL.crear_cuenta(nombre, contrasena)
+        if flag:
+            print("Cuenta creada exitosamente")
+        else:
+            print("No se pudo crear la contraseña")
 
     def mostrar_menu_usuario(self):
         while True:
