@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2023 a las 06:45:11
+-- Tiempo de generación: 25-10-2023 a las 07:06:16
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -18,8 +18,20 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `proyecto`
+-- Base de datos: `proyecto 2`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `traducciones`
+--
+
+CREATE TABLE `traducciones` (
+  `ID` int(11) NOT NULL,
+  `Idioma1` text NOT NULL,
+  `Idioma2` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -34,14 +46,38 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`ID`, `User`, `Password`) VALUES
+(1, 'hola', 'como'),
+(2, 'hola2', 'como');
+
+--
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `traducciones`
+--
+ALTER TABLE `traducciones`
+  ADD KEY `ID` (`ID`);
 
 --
 -- Indices de la tabla `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `traducciones`
+--
+ALTER TABLE `traducciones`
+  ADD CONSTRAINT `traducciones_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `user` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

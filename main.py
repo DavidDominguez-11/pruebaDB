@@ -3,19 +3,19 @@ class Usuario:
         self.nombre = nombre
         self.contrasena = contrasena
 
+
 class Menu:
     def __init__(self):
         self.usuarios = []
         self.usuario_actual = None
 
     def mostrar_menu_principal(self):
-        
+
         while True:
 
             if self.usuario_actual:
-                self.mostrar_menu_usuario()  # Redirigir al menú de usuario si ya ha iniciado sesión
+                self.mostrar_menu_usuario()
                 break
-
 
             print(" Menu Principal ")
             print("1. Iniciar Sesion")
@@ -82,5 +82,3 @@ class Menu:
 
     def ver_material(self):
         print("Ver material")
-
-
