@@ -53,8 +53,7 @@ class Menu:
             print(" Menu de Usuario ")
             print("1. Traductor")
             print("2. ChatBot")
-            print("3. Ver material")
-            print("4. Cerrar sesion")
+            print("3. Cerrar sesion")
             opcion = input("Seleccione una opcion: ")
 
             if opcion == "1":
@@ -62,8 +61,6 @@ class Menu:
             elif opcion == "2":
                 self.chatbot()
             elif opcion == "3":
-                self.ver_material()
-            elif opcion == "4":
                 self.usuario_actual = None
                 print("Sesión cerrada.")
                 break
@@ -75,6 +72,3 @@ class Menu:
 
     def chatbot(self):
         print("ChatBot")
-
-    def ver_material(self):
-        print("Ver material")
