@@ -4,7 +4,7 @@ import database
 class Menu:
     def __init__(self):
         self.usuario_actual = None
-        self.db = database.Database('localhost', 'root', '', 'proyecto 2')
+        self.db = database.Database('localhost', 'root', '', 'proyecto_2')
 
     def mostrar_menu_principal(self):
         while True:
