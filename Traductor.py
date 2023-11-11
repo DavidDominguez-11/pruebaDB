@@ -1,7 +1,7 @@
 from translate import Translator
 
 class Traductor:
-    def __init__(self, target_language='zh'):
+    def __init__(self, target_language='ceb'):
         self.target_language = target_language
 
     def traducirTexto(self, text):
