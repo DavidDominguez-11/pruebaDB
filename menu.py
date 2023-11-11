@@ -61,7 +61,8 @@ class Menu:
             if opcion == "1":
                 self.traductor()
             elif opcion == "2":
-                self.chatbot()
+                mensaje = input("Ingrese su pregunta: ")
+                self.chatbot(mensaje)
             elif opcion == "3":
                 self.usuario_actual = None
                 print("Sesión cerrada.")
@@ -77,30 +78,7 @@ class Menu:
         texto_a_traducir = input("Ingrese el texto que desea traducir: ")
         traductor.traducirTexto(texto_a_traducir)
 
-    def chatbot(self):
-<<<<<<< HEAD
-        print("ChatBot")
-        texto1 = input("Ingrese texto a traducir: ")
-        texto2 = "holamundo"
-        if self.usuario_actual:
-            # Guardar la traducción en la base de datos
-            ConsultasI.Consultas().guardar_traducciones_usuario(self.usuario_actual, texto1, texto2)
-            
-            # Obtener el historial de traducciones del usuario actual
-            historial = ConsultasI.Consultas().obtener_idiomas_usuario(self.usuario_actual)
-            
-            for registro in historial:
-                print(registro)
-        
-
-=======
+    def chatbot(self,mensaje):
         # instacia de la clase Chat
         chat = Chat()
-<<<<<<< HEAD
-
-        mensaje = input("Ingrese su mensaje:" )
         chat.hacerPregunta(mensaje)
->>>>>>> 56c509ee3da8b80de8ec31efd274f74db1635174
-=======
-        chat.hacerPregunta()
->>>>>>> 0ba059b81ff08f5b1afbe144a42d117750210908
