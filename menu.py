@@ -61,7 +61,8 @@ class Menu:
             if opcion == "1":
                 self.traductor()
             elif opcion == "2":
-                self.chatbot()
+                mensaje = input("Ingrese su pregunta: ")
+                self.chatbot(mensaje)
             elif opcion == "3":
                 self.usuario_actual = None
                 print("Sesión cerrada.")
@@ -77,6 +78,7 @@ class Menu:
         texto_a_traducir = input("Ingrese el texto que desea traducir: ")
         traductor.traducirTexto(texto_a_traducir)
 
+<<<<<<< HEAD
     def chatbot(self):
         print("ChatBot")
         texto1 = input("Ingrese texto a traducir: ")
@@ -97,3 +99,9 @@ class Menu:
         chat.hacerPregunta(mensaje)
 
         chat.hacerPregunta()
+=======
+    def chatbot(self,mensaje):
+        # instacia de la clase Chat
+        chat = Chat()
+        chat.hacerPregunta(mensaje)
+>>>>>>> 78686d96ea77d832ff2bb9468b3a2ae6d6985c30
