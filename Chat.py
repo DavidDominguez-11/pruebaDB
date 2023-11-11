@@ -8,28 +8,20 @@ class Chat:
 
     def hacerPregunta(self, mensaje):
 
+        toString = ""
+
         response = g4f.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": mensaje}],
             stream=True,
         )
 
+        #print("tipo" , type(response))
         for message in response:
             print(Fore.BLUE + message, flush=True, end='')
-            print(Fore.WHITE+" ")
+            toString = toString + message
+        print(Fore.WHITE+" ")
+        #print("Tipo de to String :",type(toString))
+        
 
-            # Salir del bucle si el usuario escribe "salir"
-            if user_input.lower() == "salir":
-                print(Fore.WHITE+" Adios")
-                break
-
-
-            response = g4f.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[{"role": "user", "content": user_input}],
-                stream=True,
-            )
-
-            for message in response:
-                print(Fore.BLUE + message, flush=True, end='')
-        return response
+        return Fore.BLUE + toString
