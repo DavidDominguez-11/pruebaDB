@@ -1,4 +1,3 @@
-
 import g4f
 
 class Chat:
@@ -14,4 +13,5 @@ class Chat:
         )
 
         for message in response:
+            print("*********************************************************")
             print(message, flush=True, end='')
