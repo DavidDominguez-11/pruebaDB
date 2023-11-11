@@ -78,7 +78,6 @@ class Menu:
         traductor.traducirTexto(texto_a_traducir)
 
     def chatbot(self):
-<<<<<<< HEAD
         print("ChatBot")
         texto1 = input("Ingrese texto a traducir: ")
         texto2 = "holamundo"
@@ -92,15 +91,9 @@ class Menu:
             for registro in historial:
                 print(registro)
         
-
-=======
         # instacia de la clase Chat
         chat = Chat()
-<<<<<<< HEAD
-
         mensaje = input("Ingrese su mensaje:" )
         chat.hacerPregunta(mensaje)
->>>>>>> 56c509ee3da8b80de8ec31efd274f74db1635174
-=======
+
         chat.hacerPregunta()
->>>>>>> 0ba059b81ff08f5b1afbe144a42d117750210908

@@ -26,3 +26,5 @@ class Chat:
 
             for message in response:
                 print(Fore.BLUE + message, flush=True, end='')
+
+            
