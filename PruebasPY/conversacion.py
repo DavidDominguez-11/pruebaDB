@@ -21,5 +21,6 @@ while True:
 
     # Imprimir la respuesta del modelo
     for message in response:
-        if isinstance(message, dict) and 'content' in message:
-            print("Modelo:", message['content'])
+        #if isinstance(message, dict) and 'content' in message:
+        #    print("Modelo:", message)
+        print(message, flush=True, end='')

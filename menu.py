@@ -83,6 +83,4 @@ class Menu:
     def chatbot(self):
         # instacia de la clase Chat
         chat = Chat()
-
-        mensaje = input("Ingrese su mensaje:" )
-        chat.hacerPregunta(mensaje)
+        chat.hacerPregunta()
