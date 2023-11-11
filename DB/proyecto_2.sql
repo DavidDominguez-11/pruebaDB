@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2023 a las 07:06:16
+-- Tiempo de generación: 11-11-2023 a las 04:05:53
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -18,8 +18,20 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `proyecto 2`
+-- Base de datos: `proyecto_2`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `chatbot`
+--
+
+CREATE TABLE `chatbot` (
+  `ID` int(11) NOT NULL,
+  `entrada` text NOT NULL,
+  `salida` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -58,10 +70,17 @@ INSERT INTO `user` (`ID`, `User`, `Password`) VALUES
 --
 
 --
+-- Indices de la tabla `chatbot`
+--
+ALTER TABLE `chatbot`
+  ADD UNIQUE KEY `ID` (`ID`);
+
+--
 -- Indices de la tabla `traducciones`
 --
 ALTER TABLE `traducciones`
-  ADD KEY `ID` (`ID`);
+  ADD KEY `ID` (`ID`),
+  ADD KEY `ID_2` (`ID`);
 
 --
 -- Indices de la tabla `user`
@@ -74,10 +93,16 @@ ALTER TABLE `user`
 --
 
 --
+-- Filtros para la tabla `chatbot`
+--
+ALTER TABLE `chatbot`
+  ADD CONSTRAINT `chatbot_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `user` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `traducciones`
 --
 ALTER TABLE `traducciones`
-  ADD CONSTRAINT `traducciones_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `user` (`ID`);
+  ADD CONSTRAINT `traducciones_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `user` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
