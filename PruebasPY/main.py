@@ -1,8 +1,3 @@
-"""
-# este funciona pero solo en ingles y es algo mula
-from chatbot import demo
-demo()
-"""
 
 import g4f
 
