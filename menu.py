@@ -71,37 +71,34 @@ class Menu:
                 print("Opción no valida")
 
     def traductor(self):
-
         #instancia de la clase Traductor
         traductor = Traductor()
-
         texto_a_traducir = input("Ingrese el texto que desea traducir: ")
-        traductor.traducirTexto(texto_a_traducir)
-
-<<<<<<< HEAD
-    def chatbot(self):
-        print("ChatBot")
-        texto1 = input("Ingrese texto a traducir: ")
-        texto2 = "holamundo"
+        texto_traducido = traductor.traducirTexto(texto_a_traducir)
         if self.usuario_actual:
             # Guardar la traducción en la base de datos
-            ConsultasI.Consultas().guardar_traducciones_usuario(self.usuario_actual, texto1, texto2)
+            ConsultasI.Consultas().guardar_traducciones_U(self.usuario_actual, texto_a_traducir, texto_traducido)
             
             # Obtener el historial de traducciones del usuario actual
-            historial = ConsultasI.Consultas().obtener_idiomas_usuario(self.usuario_actual)
+            historial = ConsultasI.Consultas().obtener_traducciones_U(self.usuario_actual)
             
             for registro in historial:
                 print(registro)
-        
+
+    def chatbot(self):
+        print("ChatBot")        
         # instacia de la clase Chat
         chat = Chat()
         mensaje = input("Ingrese su mensaje:" )
-        chat.hacerPregunta(mensaje)
+        mensaje2 = chat.hacerPregunta(mensaje)
+        
+        if self.usuario_actual:
+            # Guardar la traducción en la base de datos
+            ConsultasI.Consultas().guardar_traducciones_CB(self.usuario_actual, mensaje, mensaje2)
+            
+            # Obtener el historial de traducciones del usuario actual
+            historial = ConsultasI.Consultas().obtener_traducciones_CB(self.usuario_actual)
+            
+            for registro in historial:
+                print(registro)
 
-        chat.hacerPregunta()
-=======
-    def chatbot(self,mensaje):
-        # instacia de la clase Chat
-        chat = Chat()
-        chat.hacerPregunta(mensaje)
->>>>>>> 78686d96ea77d832ff2bb9468b3a2ae6d6985c30

@@ -16,9 +16,8 @@ class Chat:
 
         for message in response:
             print(Fore.BLUE + message, flush=True, end='')
-        print(Fore.WHITE+" ")
+            print(Fore.WHITE+" ")
 
-<<<<<<< HEAD
             # Salir del bucle si el usuario escribe "salir"
             if user_input.lower() == "salir":
                 print(Fore.WHITE+" Adios")
@@ -33,8 +32,4 @@ class Chat:
 
             for message in response:
                 print(Fore.BLUE + message, flush=True, end='')
-
-            
-=======
         return response
->>>>>>> 78686d96ea77d832ff2bb9468b3a2ae6d6985c30

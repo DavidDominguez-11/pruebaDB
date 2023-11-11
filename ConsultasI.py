@@ -5,7 +5,7 @@ class Consultas:
         self.db = Database('localhost', 'root', '', 'proyecto_2')
 
     #Funciones para la base de datos Traductor
-    def obtener_idiomas_usuario(self, usuario_actual):
+    def obtener_traducciones_U(self, usuario_actual):
         connection = None
         cursor = None
         try:
@@ -38,7 +38,7 @@ class Consultas:
             if connection and connection.is_connected():
                 connection.close()
     
-    def guardar_traducciones_usuario(self, usuario_actual, texto_idioma1, texto_idioma2):
+    def guardar_traducciones_U(self, usuario_actual, texto_idioma1, texto_idioma2):
         try:
             connection = self.db.conectar()
             cursor = connection.cursor()
@@ -65,7 +65,7 @@ class Consultas:
                 connection.close()
 
     #Funciones para tabla Chatbot
-    def obtener_idiomas_usuarioCB(self, usuario_actual):
+    def obtener_traducciones_CB(self, usuario_actual):
         connection = None
         cursor = None
         try:
@@ -98,7 +98,7 @@ class Consultas:
             if connection and connection.is_connected():
                 connection.close()
     
-    def guardar_traducciones_usuario(self, usuario_actual, texto_idioma1, texto_idioma2):
+    def guardar_traducciones_CB(self, usuario_actual, texto_idioma1, texto_idioma2):
         try:
             connection = self.db.conectar()
             cursor = connection.cursor()
