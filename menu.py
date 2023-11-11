@@ -1,11 +1,10 @@
 import database
-
+import ConsultasI
 
 class Menu:
     def __init__(self):
         self.usuario_actual = None
         self.db = database.Database('localhost', 'root', '', 'proyecto_2')
-
     def mostrar_menu_principal(self):
         while True:
             if self.usuario_actual:
@@ -60,6 +59,9 @@ class Menu:
                 self.traductor()
             elif opcion == "2":
                 self.chatbot()
+                result = ConsultasI.Consultas().obtener_idiomas_usuario(3)
+                print(result)
+
             elif opcion == "3":
                 self.usuario_actual = None
                 print("Sesión cerrada.")

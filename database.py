@@ -1,6 +1,5 @@
 import mysql.connector
 
-
 class Database:
     def __init__(self, host, user, password, database):
         self.config = {
@@ -23,6 +22,7 @@ class Database:
             result = cursor.fetchone()
 
             return bool(result)
+            
 
         except mysql.connector.Error as err:
             print(f"Error: {err}")
@@ -77,3 +77,5 @@ class Database:
             if 'connection' in locals() and connection.is_connected():
                 cursor.close()
                 connection.close()
+
+    
