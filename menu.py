@@ -1,8 +1,8 @@
 import database
 import ConsultasI
 
-import Chat
 from Traductor import Traductor
+from Chat import Chat
 
 class Menu:
     def __init__(self):
@@ -73,7 +73,7 @@ class Menu:
                 print("Opción no valida")
 
     def traductor(self):
-        
+
         #instancia de la clase Traductor
         traductor = Traductor()
 
@@ -81,4 +81,8 @@ class Menu:
         traductor.traducirTexto(texto_a_traducir)
 
     def chatbot(self):
-        print("ChatBot")
+        # instacia de la clase Chat
+        chat = Chat()
+
+        mensaje = input("Ingrese su mensaje:" )
+        chat.hacerPregunta(mensaje)

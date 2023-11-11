@@ -13,4 +13,5 @@ class Chat:
         )
 
         for message in response:
+            print("*********************************************************")
             print(message, flush=True, end='')
