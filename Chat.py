@@ -24,4 +24,4 @@ class Chat:
         #print("Tipo de to String :",type(toString))
         
 
-        return Fore.BLUE + toString
+        return toString
