@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-11-2023 a las 04:05:53
+-- Tiempo de generación: 21-11-2023 a las 05:01:36
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -24,85 +24,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `chatbot`
---
-
-CREATE TABLE `chatbot` (
-  `ID` int(11) NOT NULL,
-  `entrada` text NOT NULL,
-  `salida` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `traducciones`
---
-
-CREATE TABLE `traducciones` (
-  `ID` int(11) NOT NULL,
-  `Idioma1` text NOT NULL,
-  `Idioma2` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `user`
 --
 
 CREATE TABLE `user` (
   `ID` int(11) NOT NULL,
   `User` varchar(20) NOT NULL,
-  `Password` varchar(20) NOT NULL
+  `Password` varchar(20) NOT NULL,
+  `type` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`ID`, `User`, `Password`) VALUES
-(1, 'hola', 'como'),
-(2, 'hola2', 'como');
+INSERT INTO `user` (`ID`, `User`, `Password`, `type`) VALUES
+(1, 'hola', 'como', ''),
+(2, 'hola2', 'como', ''),
+(3, 'kkk', 'kkk', ''),
+(4, 'irisa', '1234', '');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `chatbot`
---
-ALTER TABLE `chatbot`
-  ADD UNIQUE KEY `ID` (`ID`);
-
---
--- Indices de la tabla `traducciones`
---
-ALTER TABLE `traducciones`
-  ADD KEY `ID` (`ID`),
-  ADD KEY `ID_2` (`ID`);
-
---
 -- Indices de la tabla `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`ID`);
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `chatbot`
---
-ALTER TABLE `chatbot`
-  ADD CONSTRAINT `chatbot_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `user` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `traducciones`
---
-ALTER TABLE `traducciones`
-  ADD CONSTRAINT `traducciones_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `user` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
