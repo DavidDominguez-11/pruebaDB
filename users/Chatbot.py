@@ -1,9 +1,9 @@
-from Usuario import Usuario
+from users import Usuario
 
 
 class Chatbot(Usuario):
-    def __init__(self, username, name, password, type_user):
-        super().__init(username, name, password, type_user)
+    def __init__(self, id_, username, password, type_user):
+        super().__init__(id_, username, password, type_user)
         self.input_text = None
         self.output_text = None
 

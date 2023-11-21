@@ -1,13 +1,19 @@
-import database
-import ConsultasI
 
-from Traductor import Traductor
-from Chat import Chat
+from controllers import Database
+from controllers import Traductor
+from controllers import Chat
+from interface import ConsultasI as Consultas
+from users import Chatbot
+from users import TraductorU
+from users import SuperUser
+
 
 class Menu:
     def __init__(self):
+        self.type_users = ("chat", "traslate", "super")
         self.usuario_actual = None
-        self.db = database.Database('localhost', 'root', '', 'proyecto_2')
+        self.db = Database.Database('localhost', 'root', '', 'proyecto_2')
+
     def mostrar_menu_principal(self):
         while True:
             if self.usuario_actual:
@@ -30,24 +36,30 @@ class Menu:
                 print("Opcion no valida")
 
     def login(self):
-        nombre = input("Ingrese su nombre de usuario: ")
-        contrasena = input("Ingrese su contraseña: ")
-
-        flag = self.db.verificar_usuario(nombre, contrasena)
+        username = input("Ingrese su nombre de usuario: ")
+        password = input("Ingrese su contraseña: ")
+        flag = self.db.verificar_usuario(username, password)
         if flag:
-            self.usuario_actual = nombre
-            print(f"Bienvenido, {nombre}!")
+            print(f"Bienvenido, {username}!")
+            data_user = self.get_user(username)
+            self.usuario_actual = self.set_user(data_user)
         else:
             print("Nombre de usuario o contraseña incorrectos.")
 
     def crear_cuenta(self):
-        nombre = input("Ingrese un nombre de usuario: ")
-        contrasena = input("Ingrese una contraseña: ")
-
-        flag = self.db.crear_cuenta(nombre, contrasena)
-        if flag:
+        try:
+            nombre = input("Ingrese un nombre de usuario: ")
+            contrasena = input("Ingrese una contraseña: ")
+            type_user = input(
+                f"Que tipo de usuario sera ({', '.join(self.type_users)}): ")
+            type_user = type_user.lower().strip()
+            if type_user not in self.type_users:
+                raise
+            flag = self.db.crear_cuenta(nombre, contrasena, type_user)
+            if not (flag):
+                raise
             print("Cuenta creada exitosamente")
-        else:
+        except:
             print("No se pudo crear la cuenta")
 
     def mostrar_menu_usuario(self):
@@ -61,7 +73,7 @@ class Menu:
             if opcion == "1":
                 self.traductor()
             elif opcion == "2":
-                #mensaje = input("Ingrese su pregunta: ")
+                # mensaje = input("Ingrese su pregunta: ")
                 self.chatbot()
             elif opcion == "3":
                 self.usuario_actual = None
@@ -71,35 +83,37 @@ class Menu:
                 print("Opción no valida")
 
     def traductor(self):
-        #instancia de la clase Traductor
+        # instancia de la clase Traductor
         traductor = Traductor()
         texto_a_traducir = input("Ingrese el texto que desea traducir: ")
         texto_traducido = traductor.traducirTexto(texto_a_traducir)
         if self.usuario_actual:
             # Guardar la traducción en la base de datos
-            ConsultasI.Consultas().guardar_traducciones_U(self.usuario_actual, texto_a_traducir, texto_traducido)
-            
+            Consultas.Consultas().guardar_traducciones_U(
+                self.usuario_actual, texto_a_traducir, texto_traducido)
+
             # Obtener el historial de traducciones del usuario actual
-            historial = ConsultasI.Consultas().obtener_traducciones_U(self.usuario_actual)
-            
+            historial = Consultas.Consultas().obtener_traducciones_U(self.usuario_actual)
+
             for registro in historial:
                 print(registro)
 
     def chatbot(self):
-        mensaje = input("Ingrese su mensaje:" )
+        mensaje = input("Ingrese su mensaje:")
 
         chat = Chat()
-        #chat.hacerPregunta(mensaje)
+        # chat.hacerPregunta(mensaje)
 
         mensaje2 = chat.hacerPregunta(mensaje)
 
         if self.usuario_actual:
             # Guardar la traducción en la base de datos
-            ConsultasI.Consultas().guardar_traducciones_CB(self.usuario_actual, mensaje, mensaje2)
-            
+            Consultas.Consultas().guardar_traducciones_CB(
+                self.usuario_actual, mensaje, mensaje2)
+
             # Obtener el historial de traducciones del usuario actual
-            historial = ConsultasI.Consultas().obtener_traducciones_CB(self.usuario_actual)
-            
+            historial = Consultas.Consultas().obtener_traducciones_CB(self.usuario_actual)
+
             for registro in historial:
                 print(registro)
         """
@@ -110,3 +124,20 @@ class Menu:
         
         """
 
+    def set_user(self, data):
+        user = None
+        id_ = data[0]
+        username = data[1]
+        password = data[2]
+        type_user = data[3]
+        if type_user == self.type_users[0]:
+            user = Chatbot(id_, username, password, type_user)
+        elif type_user == self.type_users[1]:
+            user = TraductorU(id_, username, password, type_user)
+        elif type_user == self.type_users[2]:
+            user = SuperUser(id_, username, password, type_user)
+
+        return user
+
+    def get_user(self, username):
+        return self.db.get_user(username)

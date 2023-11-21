@@ -1,18 +1,15 @@
-import database
-
-
 class Usuario:
-    def __init__(self, username, name, password, type_user):
+    def __init__(self, id_, username, password, type_user):
         self.username = username
-        self.name = name
+        self.id_ = id_
         self.password = password
         self.type = type_user
 
     def get_username(self):
         return self.username
 
-    def get_name(self):
-        return self.name
+    def get_id(self):
+        return self.id_
 
     def get_password(self):
         return self.password

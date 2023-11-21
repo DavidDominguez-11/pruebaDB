@@ -1,13 +1,13 @@
-from Usuario import Usuario
-from Chatbot import Chatbot
-from Traductor import Traductor
+from users import Usuario
+from users import Chatbot
+from users import TraductorU
 
 
-class SuperUsuario(Usuario):
-    def __init__(self, username, name, password, type_user):
-        super().__init__(username, name, password, type_user)
-        self.chatbot = Chatbot(username, name, password, type_user)
-        self.traductor = Traductor(username, name, password, type_user)
+class SuperUser(Usuario):
+    def __init__(self, id_, username, password, type_user):
+        super().__init__(id_, username, password, type_user)
+        self.chatbot = Chatbot(id_, username, password, type_user)
+        self.traductor = TraductorU(id_, username, password, type_user)
 
     def set_input_text(self, text):
         self.chatbot.set_input_text(text)

@@ -1,9 +1,9 @@
-from Usuario import Usuario
+from users import Usuario
 
 
-class Traductor(Usuario):
-    def __init__(self, username, name, password, type_user):
-        super().__init(username, name, password, type_user)
+class TraductorU(Usuario):
+    def __init__(self, username, id_, password, type_user):
+        super().__init__(id_, username, password, type_user)
         self.idioma1 = None
         self.idioma2 = None
 

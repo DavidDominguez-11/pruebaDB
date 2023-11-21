@@ -1,0 +1,8 @@
+// {
+//     "python.analysis.extraPaths": [
+//         "./controllers",
+//         "./interface",
+//         "./view",
+//         "./users"
+//     ]
+// }
