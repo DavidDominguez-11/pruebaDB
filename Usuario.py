@@ -3,7 +3,6 @@ import database
 
 class Usuario:
     def __init__(self, username, name, password, type_user):
-        self.db = database.Database('localhost', 'root', '', 'proyecto_2')
         self.username = username
         self.name = name
         self.password = password
