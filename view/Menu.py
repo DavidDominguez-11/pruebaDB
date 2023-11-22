@@ -1,7 +1,9 @@
 from controllers import Database
 from controllers import Traductor
 from controllers import Chat
-from interface import ConsultaI
+from interface import ConsultasI
+from controllers import ConsultasChatbot
+from controllers import ConsultasTraductor  
 from users import Chatbot
 from users import TraductorU
 from users import SuperUser
@@ -119,6 +121,7 @@ class Menu:
     def traductor(self):
         if isinstance(self.usuario_actual, TraductorU):
             traductor = Traductor()
+            username = self.usuario_actual.get_username()
             texto_a_traducir = input("Ingrese el texto que desea traducir: ")
             texto_traducido = traductor.traducirTexto(texto_a_traducir)
             self.usuario_actual.guardar_traduccion(texto_a_traducir, texto_traducido)
