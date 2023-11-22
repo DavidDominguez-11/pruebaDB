@@ -1,5 +1,8 @@
 from controllers import Database
-from controllers import Consulta_ChatBot, Consulta_Traductor, Chat, Traductor
+from controllers import Consulta_ChatBot
+from controllers import Consulta_Traductor
+from controllers import Chat
+from controllers import Traductor
 from users import Chatbot
 from users import TraductorU
 from users import SuperUser
@@ -9,7 +12,7 @@ class Menu:
     def __init__(self):
         self.type_users = ("chat", "traslate", "super")
         self.usuario_actual = None
-        self.db = Database.Database('localhost', 'root', '', 'proyecto_2')
+        self.db = Database('localhost', 'root', '', 'proyecto_2')
 
     def mostrar_menu_principal(self):
         while True:
