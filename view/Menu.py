@@ -12,7 +12,7 @@ class Menu:
     def __init__(self):
         self.type_users = ("chat", "traslate", "super")
         self.usuario_actual = None
-        self.db = Database.Database('localhost', 'root', '', 'proyecto_2')
+        self.db = Database('localhost', 'root', '', 'proyecto_2')
 
     def mostrar_menu_principal(self):
         while True:
@@ -119,40 +119,55 @@ class Menu:
 
     def traductor(self):
         if isinstance(self.usuario_actual, TraductorU) or isinstance(self.usuario_actual, SuperUser):
-            traductor = Traductor()
             username = self.usuario_actual.get_username()
-            data = self.get_data(username)
-            print(data)
-            self.usuario_actual.set_idioma_original[["Idioma1"]]
-            self.usuario_actual.set_idioma_final[["Idioma2"]]
+            type_class = ConsultasTraductor.ConsultasTraductor()
+            data = self.get_data(username, type_class)
+            idioma1, idioma2 = self.split_data(data)
+            self.usuario_actual.set_idioma_original(idioma1)
+            self.usuario_actual.set_idioma_final(idioma2)
+            traductor = Traductor()
             texto_a_traducir = input("Ingrese el texto que desea traducir: ")
             texto_traducido = traductor.traducirTexto(texto_a_traducir)
-            self.usuario_actual.guardar_traduccion(
-                texto_a_traducir, texto_traducido)
-            historial = self.usuario_actual.obtener_traducciones()
+            print(texto_traducido)
+            self.seve_data(username, type_class,
+                           texto_a_traducir, texto_traducido)
+            historial = self.get_data(username, type_class)
             for registro in historial:
                 print(registro)
         else:
             print("Acceso no autorizado.")
 
     def chatbot(self):
-        if isinstance(self.usuario_actual, TraductorU) or isinstance(self.usuario_actual, SuperUser):
-            mensaje = input("Ingrese su mensaje:")
-
+        if isinstance(self.usuario_actual, Chatbot) or isinstance(self.usuario_actual, SuperUser):
+            username = self.usuario_actual.get_username()
+            type_class = ConsultasChatbot.ConsultasChatbot()
+            data = self.get_data(username, type_class)
+            texto1, texto2 = self.split_data(data)
+            self.usuario_actual.set_input_text(texto1)
+            self.usuario_actual.set_output_text(texto2)
             chat = Chat()
+            texto = input(f"{username}: ").strip()
+            texto_respuesta = chat.hacerPregunta(texto)
+            self.seve_data(username, type_class, texto, texto_respuesta)
+            print(texto_respuesta)
+            historial = self.get_data(username, type_class)
+            for registro in historial:
+                print(registro)
 
-            mensaje2 = chat.hacerPregunta(mensaje)
+        else:
+            print("Acceso no autorizado.")
 
-            if self.usuario_actual:
-                # Guardar la traducción en la base de datos
-                Consultas.Consultas().guardar_traducciones_CB(
-                    self.usuario_actual, mensaje, mensaje2)
+    def split_data(self, lista):
+        lista1 = []
+        lista2 = []
+        for diccionario in lista:
+            key1, key2 = diccionario.keys()
+            lista1.append(diccionario[key1])
+            lista2.append(diccionario[key2])
+        return (lista1, lista2)
 
-                # Obtener el historial de traducciones del usuario actual
-                historial = Consultas.Consultas().obtener_traducciones_CB(self.usuario_actual)
-
-                for registro in historial:
-                    print(registro)
+    def seve_data(self, username, type_class, text1, text2):
+        type_class.guardar_data(username, text1, text2)
 
     def get_data(self, username, type_class):
         return type_class.obtener_data(username)
