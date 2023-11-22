@@ -12,7 +12,7 @@ class Menu:
     def __init__(self):
         self.type_users = ("chat", "traslate", "super")
         self.usuario_actual = None
-        self.db = Database.Database('localhost', 'root', '', 'proyecto_2')
+        self.db = Database('localhost', 'root', '', 'proyecto_2')
 
     def mostrar_menu_principal(self):
         while True:
@@ -64,23 +64,60 @@ class Menu:
 
     def mostrar_menu_usuario(self):
         while True:
-            print(" Menu de Usuario ")
-            print("1. Traductor")
-            print("2. ChatBot")
-            print("3. Cerrar sesion")
-            opcion = input("Seleccione una opcion: ")
 
-            if opcion == "1":
-                self.traductor()
-            elif opcion == "2":
-                # mensaje = input("Ingrese su pregunta: ")
-                self.chatbot()
-            elif opcion == "3":
-                self.usuario_actual = None
-                print("Sesión cerrada.")
-                break
-            else:
-                print("Opción no valida")
+            userT = self.usuario_actual.get_type_user().lower()
+
+            if userT == self.type_users[0]:
+
+                print(" Menu de Usuario ")
+                print("1. ChatBot")
+                print("2. Cerrar sesion")
+                opcion = input("Seleccione una opcion: ")
+
+                if opcion == "1":
+                    self.chatbot()
+                elif opcion == "2":
+                    self.usuario_actual = None
+                    print("Sesión cerrada.")
+                    break
+                else:
+                    print("Opción no valida")
+
+            elif userT == self.type_users[1]:
+
+                print(" Menu de Usuario ")
+                print("1. Traductor")
+                print("2. Cerrar sesion")
+                opcion = input("Seleccione una opcion: ")
+
+                if opcion == "1":
+                    self.traductor()
+                elif opcion == "2":
+                    self.usuario_actual = None
+                    print("Sesión cerrada.")
+                    break
+                else:
+                    print("Opción no valida")
+
+            elif userT == self.type_users[2]:
+                print(" Menu de Usuario ")
+                print("1. Traductor")
+                print("2. ChatBot")
+                print("3. Cerrar sesion")
+                opcion = input("Seleccione una opcion: ")
+
+                if opcion == "1":
+                    self.traductor()
+                elif opcion == "2":
+                    # mensaje = input("Ingrese su pregunta: ")
+                    self.chatbot()
+                elif opcion == "3":
+                    self.usuario_actual = None
+                    print("Sesión cerrada.")
+                    break
+                else:
+                    print("Opción no valida")
+
 
     def traductor(self):
         # instancia de la clase Traductor
