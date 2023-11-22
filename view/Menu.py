@@ -1,7 +1,5 @@
 from controllers import Database
-from controllers import Traductor
-from controllers import Chat
-from interface import ConsultasI as Consultas
+from controllers import Consulta_ChatBot, Consulta_Traductor, Chat, Traductor
 from users import Chatbot
 from users import TraductorU
 from users import SuperUser
@@ -115,6 +113,9 @@ class Menu:
 
             for registro in historial:
                 print(registro)
+
+    def get_data(self, username, type_object):
+        return type_object.get_data(username)
 
     def set_user(self, data):
         user = None
