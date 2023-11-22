@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-11-2023 a las 05:07:29
+-- Tiempo de generación: 22-11-2023 a las 05:19:38
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -65,18 +65,50 @@ CREATE TABLE `user` (
   `ID` int(11) NOT NULL,
   `User` varchar(20) NOT NULL,
   `Password` varchar(20) NOT NULL,
-  `type` varchar(20) NOT NULL
+  `Type` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`ID`, `User`, `Password`, `type`) VALUES
-(1, 'hola', 'como', ''),
-(2, 'hola2', 'como', ''),
-(3, 'kkk', 'kkk', ''),
-(4, 'irisa', '1234', '');
+INSERT INTO `user` (`ID`, `User`, `Password`, `Type`) VALUES
+(1, 'hola', 'como', 'chat'),
+(2, 'hola2', 'como', 'traslate'),
+(3, 'kkk', 'kkk', 'super'),
+(4, 'irisa', '1234', 'chat'),
+(5, 'hola3', 'como', 'super'),
+(6, 'hola4', 'como', 'traslate'),
+(7, 'user7', 'pass7', 'chat'),
+(8, 'user8', 'pass8', 'traslate'),
+(9, 'user9', 'pass9', 'super'),
+(10, 'user10', 'pass10', 'chat'),
+(11, 'user11', 'pass11', 'traslate'),
+(12, 'user12', 'pass12', 'super'),
+(13, 'user13', 'pass13', 'chat'),
+(14, 'user14', 'pass14', 'traslate'),
+(15, 'user15', 'pass15', 'super'),
+(16, 'user16', 'pass16', 'chat'),
+(17, 'user17', 'pass17', 'traslate'),
+(18, 'user18', 'pass18', 'super'),
+(19, 'user19', 'pass19', 'chat'),
+(20, 'user20', 'pass20', 'traslate'),
+(21, 'user21', 'pass21', 'super'),
+(22, 'user22', 'pass22', 'chat'),
+(23, 'user23', 'pass23', 'traslate'),
+(24, 'user24', 'pass24', 'super'),
+(25, 'user25', 'pass25', 'chat'),
+(26, 'user26', 'pass26', 'traslate'),
+(27, 'user27', 'pass27', 'super'),
+(28, 'user28', 'pass28', 'chat'),
+(29, 'user29', 'pass29', 'traslate'),
+(30, 'user30', 'pass30', 'super'),
+(31, 'user31', 'pass31', 'chat'),
+(32, 'user32', 'pass32', 'traslate'),
+(33, 'user33', 'pass33', 'super'),
+(34, 'user34', 'pass34', 'chat'),
+(35, 'user35', 'pass35', 'traslate'),
+(36, 'user36', 'pass36', 'super');
 
 --
 -- Índices para tablas volcadas
