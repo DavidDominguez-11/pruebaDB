@@ -3,7 +3,7 @@ from controllers import Database
 from interface import ConsultaI
 
 
-class Consultas(ConsultaI):
+class Consulta_Traductor(ConsultaI):
     def __init__(self):
         self.db = Database('localhost', 'root', '', 'proyecto_2')
 

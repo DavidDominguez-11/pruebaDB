@@ -5,4 +5,3 @@ if __name__ == "__main__":
 
     while True:
         menu.mostrar_menu_principal()
-        break

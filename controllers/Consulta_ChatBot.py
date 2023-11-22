@@ -1,8 +1,9 @@
 import mysql.connector
 from controllers import Database
+from interface import ConsultaI
 
 
-class Consultas:
+class Consulta_ChatBot(ConsultaI):
     def __init__(self):
         self.db = Database('localhost', 'root', '', 'proyecto_2')
 

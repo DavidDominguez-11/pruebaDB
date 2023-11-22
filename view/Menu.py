@@ -1,4 +1,3 @@
-
 from controllers import Database
 from controllers import Traductor
 from controllers import Chat
@@ -116,13 +115,6 @@ class Menu:
 
             for registro in historial:
                 print(registro)
-        """
-        print("ChatBot")        
-        # instacia de la clase Chat
-        chat = Chat()
-
-        
-        """
 
     def set_user(self, data):
         user = None
