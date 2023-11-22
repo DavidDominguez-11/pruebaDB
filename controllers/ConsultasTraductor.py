@@ -1,10 +1,10 @@
-from interface import ConsultaI
+from interface import ConsultasI
 import mysql.connector
-from controllers import Database
+#from controllers import Database
 
-class ConsultasChatbot(ConsultaI):
-    def __init__(self):
-        self.db = Database('localhost', 'root', '', 'proyecto_2')
+class ConsultasTraductor(ConsultasI):
+    #def __init__(self):
+    #    self.db = Database('localhost', 'root', '', 'proyecto_2')
 
     def obtener_traducciones(self, usuario_actual):
         connection = None
@@ -23,7 +23,7 @@ class ConsultasChatbot(ConsultaI):
 
             user_id = user_result[0] if isinstance(user_result, tuple) else user_result['ID']
 
-            query = "SELECT entrada, salida FROM chatbot WHERE ID = %s"
+            query = "SELECT Idioma1, Idioma2 FROM traducciones WHERE ID = %s"
             cursor.execute(query, (user_id,))
             results = cursor.fetchall()
 
@@ -49,7 +49,7 @@ class ConsultasChatbot(ConsultaI):
 
             user_id = user_result[0] if isinstance(user_result, tuple) else user_result['ID']
 
-            query = "INSERT INTO chatbot (ID, entrada, salida) VALUES (%s, %s, %s)"
+            query = "INSERT INTO Traducciones (ID, Idioma1, Idioma2) VALUES (%s, %s, %s)"
             cursor.execute(query, (user_id, texto_idioma1, texto_idioma2))
             connection.commit()
 
