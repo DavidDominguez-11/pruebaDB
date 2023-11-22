@@ -2,6 +2,7 @@ from interface import ConsultaI
 import mysql.connector
 from controllers import Database
 
+
 class ConsultasChatbot(ConsultaI):
     def __init__(self):
         self.db = Database('localhost', 'root', '', 'proyecto_2')
@@ -21,7 +22,8 @@ class ConsultasChatbot(ConsultaI):
                 print("Usuario no encontrado.")
                 return []
 
-            user_id = user_result[0] if isinstance(user_result, tuple) else user_result['ID']
+            user_id = user_result[0] if isinstance(
+                user_result, tuple) else user_result['ID']
 
             query = "SELECT entrada, salida FROM chatbot WHERE ID = %s"
             cursor.execute(query, (user_id,))
@@ -47,7 +49,8 @@ class ConsultasChatbot(ConsultaI):
             cursor.execute(query_id, (usuario_actual,))
             user_result = cursor.fetchone()
 
-            user_id = user_result[0] if isinstance(user_result, tuple) else user_result['ID']
+            user_id = user_result[0] if isinstance(
+                user_result, tuple) else user_result['ID']
 
             query = "INSERT INTO chatbot (ID, entrada, salida) VALUES (%s, %s, %s)"
             cursor.execute(query, (user_id, texto_idioma1, texto_idioma2))

@@ -1,18 +1,16 @@
-
 from controllers import Database
 from controllers import Traductor
 from controllers import Chat
-from interface import ConsultasI as Consultas
+from interface import ConsultaI
 from users import Chatbot
 from users import TraductorU
 from users import SuperUser
-
 
 class Menu:
     def __init__(self):
         self.type_users = ("chat", "traslate", "super")
         self.usuario_actual = None
-        self.db = Database('localhost', 'root', '', 'proyecto_2')
+        self.db = Database.Database('localhost', 'root', '', 'proyecto_2')
 
     def mostrar_menu_principal(self):
         while True:
@@ -54,13 +52,13 @@ class Menu:
                 f"Que tipo de usuario sera ({', '.join(self.type_users)}): ")
             type_user = type_user.lower().strip()
             if type_user not in self.type_users:
-                raise
+                raise ValueError("Tipo de usuario no válido")
             flag = self.db.crear_cuenta(nombre, contrasena, type_user)
-            if not (flag):
-                raise
+            if not flag:
+                raise ValueError("No se pudo crear la cuenta")
             print("Cuenta creada exitosamente")
-        except:
-            print("No se pudo crear la cuenta")
+        except ValueError as e:
+            print(e)
 
     def mostrar_menu_usuario(self):
         while True:
@@ -75,7 +73,7 @@ class Menu:
                 opcion = input("Seleccione una opcion: ")
 
                 if opcion == "1":
-                    self.chatbotC()
+                    self.chatbot()
                 elif opcion == "2":
                     self.usuario_actual = None
                     print("Sesión cerrada.")
@@ -110,7 +108,7 @@ class Menu:
                     self.traductor()
                 elif opcion == "2":
                     # mensaje = input("Ingrese su pregunta: ")
-                    self.chatbotC()
+                    self.chatbot()
                 elif opcion == "3":
                     self.usuario_actual = None
                     print("Sesión cerrada.")
@@ -118,42 +116,43 @@ class Menu:
                 else:
                     print("Opción no valida")
 
-
     def traductor(self):
-        # instancia de la clase Traductor
-        traductor = Traductor()
-        texto_a_traducir = input("Ingrese el texto que desea traducir: ")
-        texto_traducido = traductor.traducirTexto(texto_a_traducir)
-        if self.usuario_actual:
-            # Guardar la traducción en la base de datos
-            Consultas.Consultas().guardar_traducciones_U(
-                self.usuario_actual, texto_a_traducir, texto_traducido)
-
-            # Obtener el historial de traducciones del usuario actual
-            historial = Consultas.Consultas().obtener_traducciones_U(self.usuario_actual)
-
+        if isinstance(self.usuario_actual, TraductorU):
+            traductor = Traductor()
+            texto_a_traducir = input("Ingrese el texto que desea traducir: ")
+            texto_traducido = traductor.traducirTexto(texto_a_traducir)
+            self.usuario_actual.guardar_traduccion(texto_a_traducir, texto_traducido)
+            historial = self.usuario_actual.obtener_traducciones()
             for registro in historial:
                 print(registro)
+        else:
+            print("Acceso no autorizado.")
 
-    def chatbotC(self):
-        mensaje = input("Ingrese su mensaje: ")
+    def chatbot(self):
+        mensaje = input("Ingrese su mensaje:")
 
-        chatC = Chat()
+        chat = Chat()
         # chat.hacerPregunta(mensaje)
 
-        mensaje2 = chatC.hacerPregunta(mensaje)
+        mensaje2 = chat.hacerPregunta(mensaje)
 
         if self.usuario_actual:
             # Guardar la traducción en la base de datos
             Consultas.Consultas().guardar_traducciones_CB(
-                self.usuario_actual.get_username(), mensaje, mensaje2)
+                self.usuario_actual, mensaje, mensaje2)
 
             # Obtener el historial de traducciones del usuario actual
             historial = Consultas.Consultas().obtener_traducciones_CB(self.usuario_actual)
 
             for registro in historial:
                 print(registro)
+        """
+        print("ChatBot")        
+        # instacia de la clase Chat
+        chat = Chat()
 
+        
+        """
 
     def set_user(self, data):
         user = None
@@ -167,7 +166,6 @@ class Menu:
             user = TraductorU(id_, username, password, type_user)
         elif type_user == self.type_users[2]:
             user = SuperUser(id_, username, password, type_user)
-
         return user
 
     def get_user(self, username):

@@ -15,7 +15,7 @@ class Consultas:
             cursor = connection.cursor(dictionary=True)
 
             # Obtener el ID del usuario actual
-            query_id = "SELECT ID FROM user WHERE User = %s"    
+            query_id = "SELECT ID FROM user WHERE User = %s"
             cursor.execute(query_id, (usuario_actual,))
             user_result = cursor.fetchone()
 
