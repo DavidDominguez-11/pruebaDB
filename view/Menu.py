@@ -82,6 +82,7 @@ class Menu:
     def traductor(self):
         # instancia de la clase Traductor
         traductor = Traductor()
+        username = self.usuario_actual.get_username()
         texto_a_traducir = input("Ingrese el texto que desea traducir: ")
         texto_traducido = traductor.traducirTexto(texto_a_traducir)
         if self.usuario_actual:
