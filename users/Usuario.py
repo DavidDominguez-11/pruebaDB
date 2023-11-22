@@ -3,7 +3,7 @@ class Usuario:
         self.username = username
         self.id_ = id_
         self.password = password
-        self.type = type_user
+        self.type_user = type_user
 
     def get_username(self):
         return self.username
