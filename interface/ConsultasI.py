@@ -69,7 +69,7 @@ class Consultas:
                 connection.close()
 
     # Funciones para tabla Chatbot
-    def obtener_traducciones_CB(self, usuario_actual):
+    def obtener_traducciones_CB(self, username):
         connection = None
         cursor = None
         try:
@@ -78,7 +78,7 @@ class Consultas:
 
             # Obtener el ID del usuario actual
             query_id = "SELECT ID FROM user WHERE User = %s"
-            cursor.execute(query_id, (usuario_actual,))
+            cursor.execute(query_id, (username,))
             user_result = cursor.fetchone()
 
             if not user_result:

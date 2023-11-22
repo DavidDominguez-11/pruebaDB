@@ -75,7 +75,7 @@ class Menu:
                 opcion = input("Seleccione una opcion: ")
 
                 if opcion == "1":
-                    self.chatbot()
+                    self.chatbotC()
                 elif opcion == "2":
                     self.usuario_actual = None
                     print("Sesión cerrada.")
@@ -110,7 +110,7 @@ class Menu:
                     self.traductor()
                 elif opcion == "2":
                     # mensaje = input("Ingrese su pregunta: ")
-                    self.chatbot()
+                    self.chatbotC()
                 elif opcion == "3":
                     self.usuario_actual = None
                     print("Sesión cerrada.")
@@ -135,31 +135,25 @@ class Menu:
             for registro in historial:
                 print(registro)
 
-    def chatbot(self):
-        mensaje = input("Ingrese su mensaje:")
+    def chatbotC(self):
+        mensaje = input("Ingrese su mensaje: ")
 
-        chat = Chat()
+        chatC = Chat()
         # chat.hacerPregunta(mensaje)
 
-        mensaje2 = chat.hacerPregunta(mensaje)
+        mensaje2 = chatC.hacerPregunta(mensaje)
 
         if self.usuario_actual:
             # Guardar la traducción en la base de datos
             Consultas.Consultas().guardar_traducciones_CB(
-                self.usuario_actual, mensaje, mensaje2)
+                self.usuario_actual.get_username(), mensaje, mensaje2)
 
             # Obtener el historial de traducciones del usuario actual
             historial = Consultas.Consultas().obtener_traducciones_CB(self.usuario_actual)
 
             for registro in historial:
                 print(registro)
-        """
-        print("ChatBot")        
-        # instacia de la clase Chat
-        chat = Chat()
 
-        
-        """
 
     def set_user(self, data):
         user = None
