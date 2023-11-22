@@ -62,22 +62,59 @@ class Menu:
 
     def mostrar_menu_usuario(self):
         while True:
-            print(" Menu de Usuario ")
-            print("1. Traductor")
-            print("2. ChatBot")
-            print("3. Cerrar sesion")
-            opcion = input("Seleccione una opcion: ")
 
-            if opcion == "1":
-                self.traductor()
-            elif opcion == "2":
-                self.chatbot()
-            elif opcion == "3":
-                self.usuario_actual = None
-                print("Sesión cerrada.")
-                break
-            else:
-                print("Opción no valida")
+            userT = self.usuario_actual.get_type_user().lower()
+
+            if userT == self.type_users[0]:
+
+                print(" Menu de Usuario ")
+                print("1. ChatBot")
+                print("2. Cerrar sesion")
+                opcion = input("Seleccione una opcion: ")
+
+                if opcion == "1":
+                    self.chatbot()
+                elif opcion == "2":
+                    self.usuario_actual = None
+                    print("Sesión cerrada.")
+                    break
+                else:
+                    print("Opción no valida")
+
+            elif userT == self.type_users[1]:
+
+                print(" Menu de Usuario ")
+                print("1. Traductor")
+                print("2. Cerrar sesion")
+                opcion = input("Seleccione una opcion: ")
+
+                if opcion == "1":
+                    self.traductor()
+                elif opcion == "2":
+                    self.usuario_actual = None
+                    print("Sesión cerrada.")
+                    break
+                else:
+                    print("Opción no valida")
+
+            elif userT == self.type_users[2]:
+                print(" Menu de Usuario ")
+                print("1. Traductor")
+                print("2. ChatBot")
+                print("3. Cerrar sesion")
+                opcion = input("Seleccione una opcion: ")
+
+                if opcion == "1":
+                    self.traductor()
+                elif opcion == "2":
+                    # mensaje = input("Ingrese su pregunta: ")
+                    self.chatbot()
+                elif opcion == "3":
+                    self.usuario_actual = None
+                    print("Sesión cerrada.")
+                    break
+                else:
+                    print("Opción no valida")
 
     def traductor(self):
         if isinstance(self.usuario_actual, TraductorU):
@@ -92,16 +129,30 @@ class Menu:
             print("Acceso no autorizado.")
 
     def chatbot(self):
-        if isinstance(self.usuario_actual, Chatbot):
-            mensaje = input("Ingrese su mensaje:")
-            chat = Chat()
-            mensaje_respuesta = chat.hacerPregunta(mensaje)
-            self.usuario_actual.guardar_conversacion(mensaje, mensaje_respuesta)
-            historial = self.usuario_actual.obtener_conversaciones()
+        mensaje = input("Ingrese su mensaje:")
+
+        chat = Chat()
+        # chat.hacerPregunta(mensaje)
+
+        mensaje2 = chat.hacerPregunta(mensaje)
+
+        if self.usuario_actual:
+            # Guardar la traducción en la base de datos
+            Consultas.Consultas().guardar_traducciones_CB(
+                self.usuario_actual, mensaje, mensaje2)
+
+            # Obtener el historial de traducciones del usuario actual
+            historial = Consultas.Consultas().obtener_traducciones_CB(self.usuario_actual)
+
             for registro in historial:
                 print(registro)
-        else:
-            print("Acceso no autorizado.")
+        """
+        print("ChatBot")        
+        # instacia de la clase Chat
+        chat = Chat()
+
+        
+        """
 
     def set_user(self, data):
         user = None
