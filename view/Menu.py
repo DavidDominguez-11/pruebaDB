@@ -1,12 +1,12 @@
 from controllers import Database
 from controllers import Traductor
 from controllers import Chat
-from interface import ConsultasI
 from controllers import ConsultasChatbot
-from controllers import ConsultasTraductor  
+from controllers import ConsultasTraductor
 from users import Chatbot
 from users import TraductorU
 from users import SuperUser
+
 
 class Menu:
     def __init__(self):
@@ -109,7 +109,6 @@ class Menu:
                 if opcion == "1":
                     self.traductor()
                 elif opcion == "2":
-                    # mensaje = input("Ingrese su pregunta: ")
                     self.chatbot()
                 elif opcion == "3":
                     self.usuario_actual = None
@@ -119,12 +118,17 @@ class Menu:
                     print("Opción no valida")
 
     def traductor(self):
-        if isinstance(self.usuario_actual, TraductorU):
+        if isinstance(self.usuario_actual, TraductorU) or isinstance(self.usuario_actual, SuperUser):
             traductor = Traductor()
             username = self.usuario_actual.get_username()
+            data = self.get_data(username)
+            print(data)
+            self.usuario_actual.set_idioma_original[["Idioma1"]]
+            self.usuario_actual.set_idioma_final[["Idioma2"]]
             texto_a_traducir = input("Ingrese el texto que desea traducir: ")
             texto_traducido = traductor.traducirTexto(texto_a_traducir)
-            self.usuario_actual.guardar_traduccion(texto_a_traducir, texto_traducido)
+            self.usuario_actual.guardar_traduccion(
+                texto_a_traducir, texto_traducido)
             historial = self.usuario_actual.obtener_traducciones()
             for registro in historial:
                 print(registro)
@@ -132,30 +136,26 @@ class Menu:
             print("Acceso no autorizado.")
 
     def chatbot(self):
-        mensaje = input("Ingrese su mensaje:")
+        if isinstance(self.usuario_actual, TraductorU) or isinstance(self.usuario_actual, SuperUser):
+            mensaje = input("Ingrese su mensaje:")
 
-        chat = Chat()
-        # chat.hacerPregunta(mensaje)
+            chat = Chat()
 
-        mensaje2 = chat.hacerPregunta(mensaje)
+            mensaje2 = chat.hacerPregunta(mensaje)
 
-        if self.usuario_actual:
-            # Guardar la traducción en la base de datos
-            Consultas.Consultas().guardar_traducciones_CB(
-                self.usuario_actual, mensaje, mensaje2)
+            if self.usuario_actual:
+                # Guardar la traducción en la base de datos
+                Consultas.Consultas().guardar_traducciones_CB(
+                    self.usuario_actual, mensaje, mensaje2)
 
-            # Obtener el historial de traducciones del usuario actual
-            historial = Consultas.Consultas().obtener_traducciones_CB(self.usuario_actual)
+                # Obtener el historial de traducciones del usuario actual
+                historial = Consultas.Consultas().obtener_traducciones_CB(self.usuario_actual)
 
-            for registro in historial:
-                print(registro)
-        """
-        print("ChatBot")        
-        # instacia de la clase Chat
-        chat = Chat()
+                for registro in historial:
+                    print(registro)
 
-        
-        """
+    def get_data(self, username, type_class):
+        return type_class.obtener_data(username)
 
     def set_user(self, data):
         user = None

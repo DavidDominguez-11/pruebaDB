@@ -1,16 +1,11 @@
 from abc import abstractmethod, ABCMeta
-from controllers import Database
 
 
 class ConsultasI(metaclass=ABCMeta):
-    def __init__(self):
-        self.db = Database('localhost', 'root', '', 'proyecto_2')
+    @abstractmethod
+    def obtener_data(self, usuario_actual):
+        pass
 
     @abstractmethod
-    def obtener_traducciones(self, usuario_actual):
+    def guardar_data(self, usuario_actual, texto1, texto2):
         pass
-
-    @abstractmethod   
-    def guardar_traducciones(self, usuario_actual, texto_idioma1, texto_idioma2):
-        pass
-
